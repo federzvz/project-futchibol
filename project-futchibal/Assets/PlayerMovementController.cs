@@ -4,23 +4,29 @@ using UnityEngine;
 
 public class PlayerMovementController : MonoBehaviour
 {
-    public float speed = 1f;
-    public Rigidbody m_RigidBody;
+    Rigidbody m_Rigidbody;
+    public float m_Thrust = 20f;
 
-    // Start is called before the first frame update
     void Start()
     {
-        m_RigidBody = GetComponent<Rigidbody>();
+        //Fetch the Rigidbody from the GameObject with this script attached
+        m_Rigidbody = GetComponent<Rigidbody>();
+        m_Rigidbody.drag = 3;
     }
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
+        //Debug.Log(xDirection);
+        //Debug.Log(zDirection);
+        m_Rigidbody.AddForce(transform.right * xDirection * m_Thrust);
+        m_Rigidbody.AddForce(transform.forward * zDirection * m_Thrust);
 
-        Vector3 moveDIrection = new Vector3(xDirection, 0.0f, zDirection);
+        //if (Input.GetButton("Jump"))
+        //{
+        //    //Apply a force to this Rigidbody in direction of this GameObjects up axis
+        //    m_Rigidbody.AddForce(transform.up * m_Thrust);
+        //}
 
-        transform.position += moveDIrection * speed;
     }
 }
