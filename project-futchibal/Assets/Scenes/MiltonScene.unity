@@ -130,6 +130,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7967335426270132521, guid: 417cafa728601ef4aa65d9a1ed91abcb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967335427508332803, guid: 417cafa728601ef4aa65d9a1ed91abcb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967335427656909500, guid: 417cafa728601ef4aa65d9a1ed91abcb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7967335427934241981, guid: 417cafa728601ef4aa65d9a1ed91abcb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7967335428367474363, guid: 417cafa728601ef4aa65d9a1ed91abcb,
         type: 3}
       propertyPath: m_Name
@@ -327,6 +347,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Soccer Ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609237178502653200, guid: 0cc5e6c77fefbd24abed8d9c87384fc9,
+        type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cc5e6c77fefbd24abed8d9c87384fc9, type: 3}
