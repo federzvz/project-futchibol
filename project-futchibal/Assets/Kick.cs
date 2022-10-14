@@ -12,7 +12,7 @@ public class Kick : MonoBehaviour
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        pelota = GameObject.Find("PropDefault").GetComponent<Rigidbody>();
+        pelota = GameObject.Find("Soccer Ball").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
