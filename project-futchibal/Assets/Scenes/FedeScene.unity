@@ -328,5 +328,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: Soccer Ball
       objectReference: {fileID: 0}
+    - target: {fileID: 1609237178502653200, guid: 0cc5e6c77fefbd24abed8d9c87384fc9,
+        type: 3}
+      propertyPath: m_Drag
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609237178502653200, guid: 0cc5e6c77fefbd24abed8d9c87384fc9,
+        type: 3}
+      propertyPath: m_Mass
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1609237178502653200, guid: 0cc5e6c77fefbd24abed8d9c87384fc9,
+        type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cc5e6c77fefbd24abed8d9c87384fc9, type: 3}
