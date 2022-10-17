@@ -40,6 +40,7 @@ public class MainMenuController : MonoBehaviour
     public void OnVolverMultijugadorLocalClick() {
         partidoClasico.SetActive(false);
         partidoFantasioso.SetActive(false);
+        volverMultijugadorLocal.SetActive(false);
 
         partidoRapido.SetActive(true);
         volverMainMenu.SetActive(true);
