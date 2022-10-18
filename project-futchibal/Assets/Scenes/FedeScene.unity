@@ -2825,6 +2825,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 853702979, guid: 7efc0decd4ad237489a6860179e1fcb6, type: 3}
+      propertyPath: pelota
+      value: 
+      objectReference: {fileID: 833671406}
+    - target: {fileID: 853702979, guid: 7efc0decd4ad237489a6860179e1fcb6, type: 3}
       propertyPath: m_Thrust
       value: 300
       objectReference: {fileID: 0}
