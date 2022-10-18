@@ -6,13 +6,13 @@ public class Kick : MonoBehaviour
 {
     Rigidbody m_Rigidbody;
     //var heading = target.position - player.position;
-    Rigidbody pelota;
+    public Rigidbody pelota;
     public float m_Thrust = 20f;
     // Start is called before the first frame update
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
-        pelota = GameObject.Find("Soccer Ball").GetComponent<Rigidbody>();
+        //pelota = GameObject.Find("Soccer Ball").GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
