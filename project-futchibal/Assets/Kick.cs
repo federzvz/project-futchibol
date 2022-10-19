@@ -8,17 +8,18 @@ public class Kick : MonoBehaviour
     Rigidbody m_Rigidbody;
     //var heading = target.position - player.position;
     public Rigidbody pelota;
-    public float m_Thrust = 20f;
+    public float potencia;
     public float power = 1;
-    public Vector3 vectorPlayerPelota = new Vector3();
-    public Text PowerPlayer1;
+    private Vector3 vectorPlayerPelota = new Vector3();
+    public Text PowerPlayer;
+    public KeyCode kick = KeyCode.Space;
     // Start is called before the first frame update
     void Start()
     {
         m_Rigidbody = GetComponent<Rigidbody>();
         //pelota = GameObject.Find("Soccer Ball").GetComponent<Rigidbody>();
         power = 1;
-        PowerPlayer1.text = "";
+        PowerPlayer.text = "";
     }
     void actulizarPotenciaActual()
     {
@@ -26,90 +27,91 @@ public class Kick : MonoBehaviour
         {
             if (power <= 1.1)
             {
-                PowerPlayer1.text = "-";
+                PowerPlayer.text = "-";
             }
             else if (power <= 1.15)
             {
-                PowerPlayer1.text = "--";
+                PowerPlayer.text = "--";
             }
             else if (power <= 1.2)
             {
-                PowerPlayer1.text = "----";
+                PowerPlayer.text = "----";
             }
             else if (power <= 1.25)
             {
-                PowerPlayer1.text = "------";
+                PowerPlayer.text = "------";
             }
             else if (power <= 1.3)
             {
-                PowerPlayer1.text = "--------";
+                PowerPlayer.text = "--------";
             }
             else if (power <= 1.35)
             {
-                PowerPlayer1.text = "----------";
+                PowerPlayer.text = "----------";
             }
             else if (power <= 1.4)
             {
-                PowerPlayer1.text = "------------";
+                PowerPlayer.text = "------------";
             }
             else if (power <= 1.45)
             {
-                PowerPlayer1.text = "--------------";
+                PowerPlayer.text = "--------------";
             }
             else if (power <= 1.5)
             {
-                PowerPlayer1.text = "----------------";
+                PowerPlayer.text = "----------------";
             } 
             else if (power <= 1.55)
             {
-                PowerPlayer1.text = "------------------";
+                PowerPlayer.text = "------------------";
             }
             else if (power <= 1.6)
             {
-                PowerPlayer1.text = "--------------------";
+                PowerPlayer.text = "--------------------";
             }
             else if (power <= 1.65)
             {
-                PowerPlayer1.text = "----------------------";
+                PowerPlayer.text = "----------------------";
             }
             else if (power <= 1.7)
             {
-                PowerPlayer1.text = "------------------------";
+                PowerPlayer.text = "------------------------";
             }
             else if (power <= 1.75)
             {
-                PowerPlayer1.text = "--------------------------";
+                PowerPlayer.text = "--------------------------";
             }
             else if (power <= 1.8)
             {
-                PowerPlayer1.text = "----------------------------";
+                PowerPlayer.text = "----------------------------";
             }
             else if (power <= 1.85)
             {
-                PowerPlayer1.text = "------------------------------";
+                PowerPlayer.text = "------------------------------";
             }
             else if (power <= 1.9)
             {
-                PowerPlayer1.text = "--------------------------------";
+                PowerPlayer.text = "--------------------------------";
             }
             else if (power <= 1.95)
             {
-                PowerPlayer1.text = "----------------------------------";
+                PowerPlayer.text = "----------------------------------";
             }
             else if (power <= 2)
             {
-                PowerPlayer1.text = "------------------------------------";
+                PowerPlayer.text = "------------------------------------";
             }
         }
     }
+    
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log("Potencia de disparo: " + power);
-        if (Input.GetButton("kick"))
+        //Debug.Log("Potencia de disparo: " + power);
+        //Cambiar para poder manejar las 2 potencias (Team 1 y Team 2 [En principio]) Y decidir si este sript debe estar en la Escena o en cada Player
+        //if (Input.GetButton("kick"))
+        if (Input.GetKey(kick))
         {
-
             if(power < 2)
                 power += 0.02f;
             actulizarPotenciaActual();
@@ -118,7 +120,7 @@ public class Kick : MonoBehaviour
             Debug.Log((pelota.position - m_Rigidbody.position).magnitude);
             //pelota.AddForce()
         }
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(kick))
         {
             Debug.Log("KICKKKKKKKKK!!!!");
             if ((pelota.position - m_Rigidbody.position).magnitude <= 4) // Distancia requerida
@@ -131,15 +133,13 @@ public class Kick : MonoBehaviour
                 //Debug.Log(vectorPlayerPelota.magnitude);
                 vectorPlayerPelota = vectorPlayerPelota * (power * power);
                 Debug.Log(vectorPlayerPelota.magnitude);
-                pelota.AddForce(vectorPlayerPelota * m_Thrust);
+                pelota.AddForce(vectorPlayerPelota * potencia);
             }
             else
             {
                 Debug.Log("Fuera del rango de disparo");
             }
-
-            PowerPlayer1.text = "";
-
+            PowerPlayer.text = "";
             //print("Space key was released");
             power = 1f;
         }

@@ -2845,9 +2845,18 @@ PrefabInstance:
       value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 853702979, guid: 7efc0decd4ad237489a6860179e1fcb6, type: 3}
+      propertyPath: potencia
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 853702979, guid: 7efc0decd4ad237489a6860179e1fcb6, type: 3}
       propertyPath: PowerPlayer1
       value: 
       objectReference: {fileID: 528307160}
+    - target: {fileID: 7416501570964420934, guid: 7efc0decd4ad237489a6860179e1fcb6,
+        type: 3}
+      propertyPath: m_Drag
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7416501570964420934, guid: 7efc0decd4ad237489a6860179e1fcb6,
         type: 3}
       propertyPath: m_IsKinematic

@@ -5,22 +5,34 @@ using UnityEngine;
 public class PlayerMovementController : MonoBehaviour
 {
     Rigidbody m_Rigidbody;
-    public float m_Thrust = 20f;
-
+    public float potencia = 300f;
+    public KeyCode izquierda;
+    public KeyCode derecha;
+    public KeyCode arriba;
+    public KeyCode abajo ;
+    private float fuerzaHorizontal = 0f;
+    private float fuerzaVertical = 0f;
+    private float velocidadReaccion = 0.2f;
     void Start()
     {
         //Fetch the Rigidbody from the GameObject with this script attached
         m_Rigidbody = GetComponent<Rigidbody>();
-        m_Rigidbody.drag = 3;
+        //m_Rigidbody.drag = 3;
     }
     void FixedUpdate()
     {
-        float xDirection = Input.GetAxis("Horizontal");
-        float zDirection = Input.GetAxis("Vertical");
+        calcVelocidadHorizontal();
+        calcVelocidadVertical();
+
+        Debug.Log(fuerzaHorizontal);
+
+        //float xDirection = Input.GetAxis("Horizontal");
+        //float zDirection = Input.GetAxis("Vertical");
         //Debug.Log(xDirection);
         //Debug.Log(zDirection);
-        m_Rigidbody.AddForce(transform.right * xDirection * m_Thrust);
-        m_Rigidbody.AddForce(transform.forward * zDirection * m_Thrust);
+        //m_Rigidbody.AddForce(transform.right * xDirection * potencia);
+        m_Rigidbody.AddForce(transform.right * fuerzaHorizontal * potencia);
+        m_Rigidbody.AddForce(transform.forward * fuerzaVertical * potencia);
 
         //if (Input.GetButton("Jump"))
         //{
@@ -28,5 +40,79 @@ public class PlayerMovementController : MonoBehaviour
         //    m_Rigidbody.AddForce(transform.up * m_Thrust);
         //}
 
+    }
+    void calcVelocidadHorizontal()
+    {
+        if (Input.GetKey(izquierda))
+        {
+            fuerzaHorizontal -= velocidadReaccion;
+        }
+        else if (Input.GetKey(derecha))
+        {
+            fuerzaHorizontal += velocidadReaccion;
+        }
+        else
+        {
+            if ((-velocidadReaccion < fuerzaHorizontal) && (fuerzaHorizontal < velocidadReaccion))
+            {
+                fuerzaHorizontal = 0;
+            }
+            else
+            {
+                if (fuerzaHorizontal > 0)
+                {
+                    fuerzaHorizontal -= velocidadReaccion;
+                }
+                else if (fuerzaHorizontal < 0)
+                {
+                    fuerzaHorizontal += velocidadReaccion;
+                }
+            }
+        }
+        if (fuerzaHorizontal > 1)
+        {
+            fuerzaHorizontal = 1f;
+        }
+        else if (fuerzaHorizontal < -1)
+        {
+            fuerzaHorizontal = -1f;
+        }
+    }
+    void calcVelocidadVertical()
+    {
+        if (Input.GetKey(abajo))
+        {
+            fuerzaVertical -= velocidadReaccion;
+        }
+        else if (Input.GetKey(arriba))
+        {
+            fuerzaVertical += velocidadReaccion;
+        }
+        else
+        {
+            if ((-velocidadReaccion < fuerzaVertical) && (fuerzaVertical < velocidadReaccion))
+            {
+                fuerzaVertical = 0;
+            }
+            else
+            {
+                if (fuerzaVertical > 0)
+                {
+                    fuerzaVertical -= velocidadReaccion;
+                }
+                else if (fuerzaVertical < 0)
+                {
+                    fuerzaVertical += velocidadReaccion;
+                }
+            }
+        }
+        if (fuerzaVertical > 1)
+        {
+            fuerzaVertical = 1f;
+        }
+        else if (fuerzaVertical < -1)
+        {
+            fuerzaVertical = -1f;
+        }
     }
 }
