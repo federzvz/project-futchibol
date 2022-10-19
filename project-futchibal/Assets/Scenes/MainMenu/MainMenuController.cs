@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -61,10 +62,14 @@ public class MainMenuController : MonoBehaviour
 
     public void OnBtnCancha1Selected() {
         stadiumSelected = "FedeScene";
+        btnElegirCancha2.GetComponentInChildren<Text>().color = Color.white;
+        btnElegirCancha1.GetComponentInChildren<Text>().color = new Color(47f / 255f, 247f / 255f, 170f / 255f);
     }
     public void OnBtnCancha2Selected()
     {
         stadiumSelected = "MiltonScene";
+        btnElegirCancha1.GetComponentInChildren<Text>().color = Color.white;
+        btnElegirCancha2.GetComponentInChildren<Text>().color = new Color(47f / 255f, 247f / 255f, 170f / 255f);
     }
 
     public void OnBtnPlayMatch() {
