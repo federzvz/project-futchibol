@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -13,12 +14,30 @@ public class MainMenuController : MonoBehaviour
     public GameObject partidoRapidoPanel;
     public GameObject btnElegirCancha1, btnElegirCancha2;
 
+    public EventSystem eventSystem;
+    private GameObject eventSystemlastSelectedGameObject;
+
+
+
     private string stadiumSelected = "";
 
     public void Awake()
     {
         if (instance == null) {
             instance = this;
+        }
+    }
+
+    public void Update()
+    {
+
+        //Si no hay ningún botón seleccionado(Porque clickeó el backround), se guarda y se setea el último botón que estaba seleccionado.
+        if (eventSystem.currentSelectedGameObject != null)
+        {
+            eventSystemlastSelectedGameObject = eventSystem.currentSelectedGameObject;
+        }
+        else {
+            eventSystem.SetSelectedGameObject(eventSystemlastSelectedGameObject);
         }
     }
 
@@ -37,6 +56,7 @@ public class MainMenuController : MonoBehaviour
         salir.SetActive(false);
 
         partidoRapidoPanel.SetActive(true);
+        eventSystem.SetSelectedGameObject(btnElegirCancha1);
     }
 
     public void OnBtnCancha1Selected() {
@@ -73,6 +93,7 @@ public class MainMenuController : MonoBehaviour
         multijugadorOnline.SetActive(true);
         opciones.SetActive(true);
         salir.SetActive(true);
+        eventSystem.SetSelectedGameObject(multijugadorLocal);
     }
 
 
