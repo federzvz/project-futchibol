@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
     public static MainMenuController instance;
 
     public GameObject multijugadorLocal, multijugadorOnline, estadisticas, opciones, salir;
-    public GameObject partidoRapido, volverMainMenu, volverMultijugadorLocal, partidoClasico, campeonato, partidoFantasioso;
+    public GameObject partidoRapido, volverMainMenu, campeonato;
+
+    public GameObject partidoRapidoPanel;
+    public GameObject btnElegirCancha1, btnElegirCancha2;
+
+    private string stadiumSelected = "";
 
     public void Awake()
     {
@@ -17,47 +23,47 @@ public class MainMenuController : MonoBehaviour
     }
 
     public void OnMultijugadorLocalClick() {
-        multijugadorLocal.SetActive(false);
-        multijugadorOnline.SetActive(false);
-        estadisticas.SetActive(false);
-        opciones.SetActive(false);
-        salir.SetActive(false);
-
         partidoRapido.SetActive(true);
-        volverMainMenu.SetActive(true);
         campeonato.SetActive(true);
     }
 
     public void OnPartidoRapidoClick() {
         partidoRapido.SetActive(false);
-        volverMainMenu.SetActive(false);
         campeonato.SetActive(false);
+        multijugadorLocal.SetActive(false);
+        estadisticas.SetActive(false);
+        multijugadorOnline.SetActive(false);
+        opciones.SetActive(false);
+        salir.SetActive(false);
 
-        partidoClasico.SetActive(true);
-        partidoFantasioso.SetActive(true);
-        volverMultijugadorLocal.SetActive(true);
-    }
-    public void OnVolverMultijugadorLocalClick() {
-        partidoClasico.SetActive(false);
-        partidoFantasioso.SetActive(false);
-        volverMultijugadorLocal.SetActive(false);
-
-        partidoRapido.SetActive(true);
-        volverMainMenu.SetActive(true);
-        campeonato.SetActive(true);
+        partidoRapidoPanel.SetActive(true);
     }
 
-    public void OnVolverMainMenuClick() {
-        partidoRapido.SetActive(false);
-        volverMainMenu.SetActive(false);
-        campeonato.SetActive(false);
-        partidoClasico.SetActive(false);
-        partidoFantasioso.SetActive(false);
-
-        multijugadorLocal.SetActive(true);
-        multijugadorOnline.SetActive(true);
-        estadisticas.SetActive(true);
-        opciones.SetActive(true);
-        salir.SetActive(true);
+    public void OnBtnCancha1Selected() {
+        stadiumSelected = "FedeScene";
     }
+    public void OnBtnCancha2Selected()
+    {
+        stadiumSelected = "MiltonScene";
+    }
+
+    public void OnBtnPlayMatch() {
+        if (stadiumSelected.Equals("")) {
+            int rInt = Random.Range(0, 1);
+            if (rInt == 0)
+            {
+                stadiumSelected = "FedeScene";
+            }
+            else {
+                stadiumSelected = "MiltonScene";
+            }
+        }
+        SceneManager.LoadScene(stadiumSelected);
+    }
+
+    public void OnQuitClick() {
+        Application.Quit();
+    }
+
+
 }
