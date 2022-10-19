@@ -65,5 +65,15 @@ public class MainMenuController : MonoBehaviour
         Application.Quit();
     }
 
+    public void OnBtnVolverMainMenu() {
+        partidoRapidoPanel.SetActive(false);
+
+        multijugadorLocal.SetActive(true);
+        estadisticas.SetActive(true);
+        multijugadorOnline.SetActive(true);
+        opciones.SetActive(true);
+        salir.SetActive(true);
+    }
+
 
 }

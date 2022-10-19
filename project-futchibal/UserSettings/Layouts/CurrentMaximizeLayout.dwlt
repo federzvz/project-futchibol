@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 70430
+  controlID: 78296
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -142,7 +142,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 70431
+  controlID: 78297
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 70402
+  controlID: 78298
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -228,7 +228,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 2c50faff6050faff6451faffa253faff1a5afaff145cfaff865efaff8660faff4e3afbffe43afbffd053fbffbe57fbffd25bfbff20cffbffcafffbffbc02fcff3215fcffa426fcff3448fcff72f0fcffa6f4fcffaaf5fcffecf7fcff7a02fdff2c03fdff4414feff788bfeff268cfeffaa8dfeff828efeff5a8ffeff1490feffd691feffae92feff8693feff9e94feff26a4feff8af8ffff30fbffff306c0000ba6c0000306d0000686d00006c6d00007a6d0000be8a0000cc8b0000fa8b0000ca8d0000068f00003cb600005ab700009ab700009eb70000a8f50000b4f50000cef5000006f7000034f7000068f700007ef70000
+      m_ExpandedIDs: 9231faffe634faff2c50faff6050faff6451faffa253faff1a5afaff145cfaff865efaff8660faff4e3afbffe43afbffd053fbffbe57fbffd25bfbff20cffbffcafffbffbc02fcff3215fcffa426fcff3448fcff72f0fcffa6f4fcffaaf5fcffecf7fcff7a02fdff2c03fdff4414feff788bfeff268cfeffaa8dfeff828efeff5a8ffeff1490feffd691feffae92feff8693feff9e94feff26a4feff8af8ffff30fbffff306c0000ba6c0000306d0000686d00006c6d00007a6d0000be8a0000cc8b0000fa8b0000ca8d0000068f00003cb600005ab700009ab700009eb70000a8f50000b4f50000cef5000006f7000034f7000068f700007ef700004c1b01009e1c0100161d0100
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -505,9 +505,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 1006.4727, y: 547.4064, z: -5.4609895}
+    m_Target: {x: 1299.3269, y: 543.4235, z: -11.2582245}
     speed: 2
-    m_Value: {x: 1006.4727, y: 547.4064, z: -5.4609895}
+    m_Value: {x: 1299.3269, y: 543.4235, z: -11.2582245}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -558,9 +558,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 638.22516
+    m_Target: 659.6563
     speed: 2
-    m_Value: 638.22516
+    m_Value: 659.6563
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -654,22 +654,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scenes/MainMenu
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scenes/MainMenu
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\Admin\Documents\GitHub\project-futchibol\project-futchibal
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 3}
-    m_SelectedIDs: c06b0000
-    m_LastClickedID: 27584
-    m_ExpandedIDs: 00000000046a0000
+    m_SelectedIDs: d06b0000
+    m_LastClickedID: 27600
+    m_ExpandedIDs: 00000000046a0000c06b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -722,8 +722,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 5c120100
-    m_LastClickedInstanceID: 70236
+    m_SelectedInstanceIDs: 001d0100
+    m_LastClickedInstanceID: 72960
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
@@ -843,8 +843,8 @@ MonoBehaviour:
     m_CachedPref: 160
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
-  m_LastInspectedObjectInstanceID: 70236
-  m_LastVerticalScrollValue: 372.00012
+  m_LastInspectedObjectInstanceID: 72960
+  m_LastVerticalScrollValue: 0
   m_GlobalObjectId: 
   m_InspectorMode: 0
   m_LockTracker:
