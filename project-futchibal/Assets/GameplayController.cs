@@ -67,7 +67,10 @@ public class GameplayController : MonoBehaviour
                 textoScoreJugador1.text = scoreTeam1.ToString();
                 isGol = true;
                 isJuegoDetenido = true;
-                secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                if (seconds > 54 && seconds < 60)
+                    secondsNecesaryToRestart = seconds - 55;
+                else 
+                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
                 DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
             if (pelota.transform.localPosition.x <= coordenadaGolArcoJugador2)
@@ -76,7 +79,10 @@ public class GameplayController : MonoBehaviour
                 textoScoreJugador2.text = scoreTeam2.ToString();
                 isGol = true;
                 isJuegoDetenido = true;
-                secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                if (seconds > 54 && seconds < 60)
+                    secondsNecesaryToRestart = seconds - 55;
+                else
+                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
                 DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
         }
@@ -106,11 +112,13 @@ public class GameplayController : MonoBehaviour
             pelota.transform.position = pelotaPosicionInicial;
             pelotaRigidbody.isKinematic = true;
             isGol = false;
+            isJuegoDetenido = true;
         }
     }
 
     public void ComenzarJuego() {
         pelotaRigidbody.isKinematic = false;
+        isJuegoDetenido = false;
     }
 
     public void SaveInitialPlayersPositions() {
