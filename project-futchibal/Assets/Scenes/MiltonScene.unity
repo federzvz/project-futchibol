@@ -2250,6 +2250,7 @@ MonoBehaviour:
   - {fileID: 609038642}
   team2:
   - {fileID: 334939868}
+  pelota: {fileID: 1596990953}
 --- !u!1001 &945538225
 PrefabInstance:
   m_ObjectHideFlags: 0
