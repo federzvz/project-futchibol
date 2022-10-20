@@ -9,13 +9,18 @@ public class CameraController : MonoBehaviour
     public float zOriginal = -35f;
     private float x = 0f, y = 0f, z = 0f;
     private float xMayor = 0f , xMenor = 0f, zMayor = 0f, zMenor = 0f;
-    public GameObject camera;
+    public Camera camera;
     public List<GameObject> team1;
     public List<GameObject> team2;
     public GameObject pelota;
+    public bool orthographic;
     // Start is called before the first frame update
     void Start()
     {
+        //if (orthographic)
+        camera.orthographic = orthographic;
+        //else
+        //    camera.orthographic = false;
         //x = 0f;
         //y = 35f;
         //z = 35f;
