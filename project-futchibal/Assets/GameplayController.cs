@@ -20,6 +20,9 @@ public class GameplayController : MonoBehaviour
     public List<GameObject> team2;
     private float timer = 0;
     private float minutes, seconds;
+    public SphereCollider soccerBallPhysicMaterial;
+
+    private float secondsNecesaryToRestart;
 
     private void Start()
     {
@@ -64,6 +67,8 @@ public class GameplayController : MonoBehaviour
                 textoScoreJugador1.text = scoreTeam1.ToString();
                 isGol = true;
                 isJuegoDetenido = true;
+                secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
             if (pelota.transform.localPosition.x <= coordenadaGolArcoJugador2)
             {
@@ -71,6 +76,8 @@ public class GameplayController : MonoBehaviour
                 textoScoreJugador2.text = scoreTeam2.ToString();
                 isGol = true;
                 isJuegoDetenido = true;
+                secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
         }
         else {
@@ -79,22 +86,27 @@ public class GameplayController : MonoBehaviour
     }
 
     public void ResetarJuego() {
-        if (team1.Count != 0) { 
-            for (int j = 0; j < team1.Count; j++)
+        //Resetear juego cuando se alcance los segundos asignados en CheckearGol()
+        if (secondsNecesaryToRestart == seconds) {
+            if (team1.Count != 0)
             {
-                team1[j].transform.position = team1StartPositions[j];
+                for (int j = 0; j < team1.Count; j++)
+                {
+                    team1[j].transform.position = team1StartPositions[j];
+                }
             }
-        }
-        if (team2.Count != 0)
-        {
-            for (int j = 0; j < team2.Count; j++)
+            if (team2.Count != 0)
             {
-                team2[j].transform.position = team2StartPositions[j];
+                for (int j = 0; j < team2.Count; j++)
+                {
+                    team2[j].transform.position = team2StartPositions[j];
+                }
             }
+            EnableBallbounciness();
+            pelota.transform.position = pelotaPosicionInicial;
+            pelotaRigidbody.isKinematic = true;
+            isGol = false;
         }
-        pelota.transform.position = pelotaPosicionInicial;
-        pelotaRigidbody.isKinematic = true;
-        isGol = false;
     }
 
     public void ComenzarJuego() {
@@ -123,5 +135,17 @@ public class GameplayController : MonoBehaviour
         minutes = Mathf.FloorToInt(timer / 60);
         seconds = Mathf.FloorToInt(timer % 60);
         timerScoreBoard.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+    }
+
+    public void DisableBallbounciness() {
+        soccerBallPhysicMaterial.material.bounciness = 0;
+        soccerBallPhysicMaterial.material.dynamicFriction = 100;
+        soccerBallPhysicMaterial.material.staticFriction = 100;
+    }
+
+    public void EnableBallbounciness() {
+        soccerBallPhysicMaterial.material.bounciness = 0.6f;
+        soccerBallPhysicMaterial.material.dynamicFriction = 0.6f;
+        soccerBallPhysicMaterial.material.staticFriction = 0.6f;
     }
 }
