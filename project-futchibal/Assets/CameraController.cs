@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour
     public GameObject camera;
     public List<GameObject> team1;
     public List<GameObject> team2;
+    public GameObject pelota;
     // Start is called before the first frame update
     void Start()
     {
@@ -62,13 +63,22 @@ public class CameraController : MonoBehaviour
             }
         }
 
+        if (pelota.transform.position.x > xMayor)
+            xMayor = pelota.transform.position.x;
+        if (pelota.transform.position.z > zMayor)
+            zMayor = pelota.transform.position.z;
+        if (pelota.transform.position.x < xMenor)
+            xMenor = pelota.transform.position.x;
+        if (pelota.transform.position.z < zMenor)
+            zMenor = pelota.transform.position.z;
+
         //Ahora se toman los mayores y menores de esas coordenadas y se dividen a la mitad y se actualiza la posicion de la camara 
 
         //Debug.Log("xMayor: " + xMayor);
         //Debug.Log("xMenor: " + xMenor);
         //Debug.Log("zMayor: " + zMayor);
         //Debug.Log("zMenor: " + zMenor);
-        
+
         //Para hallar el medio de dos numeros basta con sumarlos y al resultado lo dividimos entre 2
 
         x = ((xMenor + xMayor) / 2) + xOriginal;
