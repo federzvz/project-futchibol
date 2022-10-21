@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 public class CameraController : MonoBehaviour
 {
     public float xOriginal = 0f;
@@ -9,21 +9,17 @@ public class CameraController : MonoBehaviour
     public float zOriginal = -35f;
     private float x = 0f, y = 0f, z = 0f;
     private float xMayor = 0f , xMenor = 0f, zMayor = 0f, zMenor = 0f;
+    public float CamMinZ = -60f, CamMaxY = 60f, DistanceToStartZoomOut = 30f;
     public Camera camera;
     public List<GameObject> team1;
     public List<GameObject> team2;
     public GameObject pelota;
     public bool orthographic;
+    private float distanciaX = 0f, distanciaZ = 0f, distanciaDiagonal = 0f;
     // Start is called before the first frame update
     void Start()
     {
-        //if (orthographic)
         camera.orthographic = orthographic;
-        //else
-        //    camera.orthographic = false;
-        //x = 0f;
-        //y = 35f;
-        //z = 35f;
     }
 
     // Update is called once per frame
@@ -85,13 +81,34 @@ public class CameraController : MonoBehaviour
         //Debug.Log("zMenor: " + zMenor);
 
         //Para hallar el medio de dos numeros basta con sumarlos y al resultado lo dividimos entre 2
+        distanciaX = Math.Abs(xMenor - xMayor);
+        distanciaZ = Math.Abs(zMenor - zMayor);
+        //Debug.Log("Distania: " + distanciaX);
+
+        distanciaDiagonal = (float) Math.Sqrt((distanciaX * distanciaX) + (distanciaZ * distanciaZ));
+
+        //Debug.Log("Diagonal: " + distanciaDiagonal);
 
         x = ((xMenor + xMayor) / 2) + xOriginal;
-        z = ((zMenor + zMayor) / 2) + zOriginal;
-        Debug.Log("X: " + x);
-        Debug.Log("Z: " + z);
-
+        if (distanciaDiagonal >= DistanceToStartZoomOut)
+        {
+            z = ((zMenor + zMayor) / 2) + zOriginal - (distanciaDiagonal - DistanceToStartZoomOut);
+            y = yOriginal + (distanciaDiagonal - DistanceToStartZoomOut);
+        }
+        else
+        {
+            y = yOriginal;
+            z = ((zMenor + zMayor) / 2) + zOriginal;
+        }
+        //Debug.Log("XM: " + xMayor);
+        //Debug.Log("Xm: " + xMenor);
+        if (y > CamMaxY)
+            y = CamMaxY;
+        if (z < CamMinZ)
+            z = CamMinZ;
+        //Debug.Log("Z: " + z);
+        //Debug.Log("Y: " + y);
         //camera.transform.Translate(new Vector3(x, y, z));
-        camera.transform.position = new Vector3(x, yOriginal, z);
+        camera.transform.position = new Vector3(x, y, z);
     }
 }
