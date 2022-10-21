@@ -10,8 +10,10 @@ public class Kick : MonoBehaviour
     public Rigidbody pelota;
     public float potencia;
     public float power = 1;
+    private int powerAux = 1, vueltasFor = 1;
     private Vector3 vectorPlayerPelota = new Vector3();
     public Text PowerPlayer;
+    private string powerTextAux = "";
     public KeyCode kick = KeyCode.Space;
     // Start is called before the first frame update
     void Start()
@@ -23,85 +25,15 @@ public class Kick : MonoBehaviour
     }
     void actulizarPotenciaActual()
     {
-        if (power > 1)
+        powerAux = (int)((power - 1) * 100);
+        Debug.Log(powerAux);
+        vueltasFor = (powerAux * 38) / 100;
+        for (int i = 0; i < vueltasFor; i++)
         {
-            if (power <= 1.1)
-            {
-                PowerPlayer.text = "-";
-            }
-            else if (power <= 1.15)
-            {
-                PowerPlayer.text = "--";
-            }
-            else if (power <= 1.2)
-            {
-                PowerPlayer.text = "----";
-            }
-            else if (power <= 1.25)
-            {
-                PowerPlayer.text = "------";
-            }
-            else if (power <= 1.3)
-            {
-                PowerPlayer.text = "--------";
-            }
-            else if (power <= 1.35)
-            {
-                PowerPlayer.text = "----------";
-            }
-            else if (power <= 1.4)
-            {
-                PowerPlayer.text = "------------";
-            }
-            else if (power <= 1.45)
-            {
-                PowerPlayer.text = "--------------";
-            }
-            else if (power <= 1.5)
-            {
-                PowerPlayer.text = "----------------";
-            } 
-            else if (power <= 1.55)
-            {
-                PowerPlayer.text = "------------------";
-            }
-            else if (power <= 1.6)
-            {
-                PowerPlayer.text = "--------------------";
-            }
-            else if (power <= 1.65)
-            {
-                PowerPlayer.text = "----------------------";
-            }
-            else if (power <= 1.7)
-            {
-                PowerPlayer.text = "------------------------";
-            }
-            else if (power <= 1.75)
-            {
-                PowerPlayer.text = "--------------------------";
-            }
-            else if (power <= 1.8)
-            {
-                PowerPlayer.text = "----------------------------";
-            }
-            else if (power <= 1.85)
-            {
-                PowerPlayer.text = "------------------------------";
-            }
-            else if (power <= 1.9)
-            {
-                PowerPlayer.text = "--------------------------------";
-            }
-            else if (power <= 1.95)
-            {
-                PowerPlayer.text = "----------------------------------";
-            }
-            else if (power <= 2)
-            {
-                PowerPlayer.text = "------------------------------------";
-            }
+            powerTextAux += "-";
         }
+        PowerPlayer.text = powerTextAux;
+        powerTextAux = "";
     }
     
     // Update is called once per frame
