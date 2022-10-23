@@ -149,9 +149,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   me: {fileID: 68397909}
   myGoal: {fileID: 1730734464}
+  opponentGoal: {fileID: 2104421311}
   ball: {fileID: 1596990953}
   potencia: 300
   GKdistanciaParaSalir: 15
+  distanciaParaSerDelantero: 40
+  distanciaTest: 10
   Tipo: 0
 --- !u!114 &179361625 stripped
 MonoBehaviour:
@@ -330,7 +333,7 @@ PrefabInstance:
     - target: {fileID: 1946616932001269145, guid: cef2e4ac5828ed74ab8a432d3ba4fcd6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1946616932001269149, guid: cef2e4ac5828ed74ab8a432d3ba4fcd6,
         type: 3}
@@ -751,9 +754,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   me: {fileID: 1904801673}
   myGoal: {fileID: 2104421311}
+  opponentGoal: {fileID: 0}
   ball: {fileID: 1596990953}
   potencia: 300
   GKdistanciaParaSalir: 15
+  distanciaParaSerDelantero: 40
+  distanciaTest: 0
   Tipo: 0
 --- !u!64 &2021828281 stripped
 MeshCollider:
@@ -1224,6 +1230,11 @@ PrefabInstance:
       objectReference: {fileID: 1596990953}
     - target: {fileID: 4292624096707928901, guid: b1cb6d17c6b385c4c9b7e2759d58fe66,
         type: 3}
+      propertyPath: team2.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4292624096707928901, guid: b1cb6d17c6b385c4c9b7e2759d58fe66,
+        type: 3}
       propertyPath: team1.Array.data[0]
       value: 
       objectReference: {fileID: 609038642}
@@ -1232,6 +1243,11 @@ PrefabInstance:
       propertyPath: team2.Array.data[0]
       value: 
       objectReference: {fileID: 334939868}
+    - target: {fileID: 4292624096707928901, guid: b1cb6d17c6b385c4c9b7e2759d58fe66,
+        type: 3}
+      propertyPath: team2.Array.data[1]
+      value: 
+      objectReference: {fileID: 68397909}
     - target: {fileID: 4292624096707928951, guid: b1cb6d17c6b385c4c9b7e2759d58fe66,
         type: 3}
       propertyPath: m_Name
