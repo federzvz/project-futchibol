@@ -6,6 +6,7 @@ public class PlayerMovementController : MonoBehaviour
 {
     Rigidbody m_Rigidbody;
     public float potencia = 300f;
+    public int playerTeamId;
     public KeyCode izquierda;
     public KeyCode derecha;
     public KeyCode arriba;
@@ -13,11 +14,15 @@ public class PlayerMovementController : MonoBehaviour
     private float fuerzaHorizontal = 0f;
     private float fuerzaVertical = 0f;
     private float velocidadReaccion = 0.2f;
+
     void Start()
     {
         //Fetch the Rigidbody from the GameObject with this script attached
         m_Rigidbody = GetComponent<Rigidbody>();
         //m_Rigidbody.drag = 3;
+
+        //setPlayerControlPrefs
+        setUpPlayerControlPrefs();
     }
     void FixedUpdate()
     {
@@ -113,6 +118,21 @@ public class PlayerMovementController : MonoBehaviour
         else if (fuerzaVertical < -1)
         {
             fuerzaVertical = -1f;
+        }
+    }
+
+    public void setUpPlayerControlPrefs() {
+        if (playerTeamId == 1) {
+            this.izquierda = MainMenuController.player1Left;
+            this.derecha = MainMenuController.player1Right;
+            this.arriba = MainMenuController.player1Up;
+            this.abajo = MainMenuController.player1Down;
+        }
+        if (playerTeamId == 2) {
+            this.izquierda = MainMenuController.player2Left;
+            this.derecha = MainMenuController.player2Right;
+            this.arriba = MainMenuController.player2Up;
+            this.abajo = MainMenuController.player2Down;
         }
     }
 }

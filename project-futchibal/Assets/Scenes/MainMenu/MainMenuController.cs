@@ -18,7 +18,20 @@ public class MainMenuController : MonoBehaviour
     public EventSystem eventSystem;
     private GameObject eventSystemlastSelectedGameObject;
 
-
+    //LocalMultiplayer controls
+    //Player 1
+    public static KeyCode player1Left = KeyCode.A;
+    public static KeyCode player1Right = KeyCode.D;
+    public static KeyCode player1Up = KeyCode.W;
+    public static KeyCode player1Down = KeyCode.S;
+    public static KeyCode player1Kick = KeyCode.Space;
+    //Player 2
+    public static KeyCode player2Left = KeyCode.LeftArrow;
+    public static KeyCode player2Right = KeyCode.RightArrow;
+    public static KeyCode player2Up = KeyCode.UpArrow;
+    public static KeyCode player2Down = KeyCode.DownArrow;
+    public static KeyCode player2Kick = KeyCode.P;
+    private bool isSystemListeningNewPlayerKeyInput = false;
 
     private string stadiumSelected = "";
 
@@ -99,6 +112,14 @@ public class MainMenuController : MonoBehaviour
         opciones.SetActive(true);
         salir.SetActive(true);
         eventSystem.SetSelectedGameObject(multijugadorLocal);
+    }
+
+    public void listenPlayer1LeftKeyInput() {
+        if (isSystemListeningNewPlayerKeyInput && Event.current.isKey && Event.current.type == EventType.KeyDown)
+        {
+            player1Left = Event.current.keyCode;
+        }
+        
     }
 
 
