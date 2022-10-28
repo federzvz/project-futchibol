@@ -48,11 +48,13 @@ public class IA_test : MonoBehaviour
         getCurrentPosition();
         goalPosition.X = myGoal.transform.position.x;
         goalPosition.Z = myGoal.transform.position.z;
+        m_Rigidbody.centerOfMass = new Vector3(0f, -0.80f, 0f);
     }
 
     // Update is called once per frame
     void Update()
     {
+        me.transform.eulerAngles = new Vector3(me.transform.eulerAngles.x, 0, me.transform.eulerAngles.z);
         if (delayToKick > 0)
             delayToKick -= 0.02f;
         actualizarDistanciaPelotaArco();
