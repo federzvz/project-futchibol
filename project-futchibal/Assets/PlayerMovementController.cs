@@ -15,16 +15,20 @@ public class PlayerMovementController : MonoBehaviour
     private float velocidadReaccion = 0.2f;
     void Start()
     {
+
         //Fetch the Rigidbody from the GameObject with this script attached
         m_Rigidbody = GetComponent<Rigidbody>();
+        m_Rigidbody.centerOfMass = new Vector3(0f, -0.80f, 0f);
         //m_Rigidbody.drag = 3;
     }
     void FixedUpdate()
     {
+        transform.eulerAngles = new Vector3(transform.eulerAngles.x, 0, transform.eulerAngles.z);
+        //m_Rigidbody.rotation = new Vector3()
         calcVelocidadHorizontal();
         calcVelocidadVertical();
 
-        Debug.Log(fuerzaHorizontal);
+        //Debug.Log(fuerzaHorizontal);
 
         //float xDirection = Input.GetAxis("Horizontal");
         //float zDirection = Input.GetAxis("Vertical");
