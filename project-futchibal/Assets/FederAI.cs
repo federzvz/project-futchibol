@@ -27,6 +27,8 @@ public class FederAI : Agent
     public Collider playerCollider;
     public GameObject enemyPlayer;
     public Agent enemyPlayerAgentScript;
+    private bool pelotaArcoDistanciaMediana = false, pelotaArcoDistanciaCercana = false, pelotaArcoDistanciaMuyCerca = false;
+    public GameObject ghostBallToCalculate;
 
     [SerializeField] private Transform targetTransform;
     [SerializeField] private Rigidbody playerRigidbody;
@@ -44,16 +46,17 @@ public class FederAI : Agent
         pelota.isKinematic = true;
         pelota.isKinematic = false;
         transform.localPosition = playerInitialPosition.localPosition;
+        pelotaArcoDistanciaCercana = false;
+        pelotaArcoDistanciaMediana = false;
+        pelotaArcoDistanciaMuyCerca = false;
         //targetTransform.localPosition = ballInitialPosition.localPosition;
-        targetTransform.localPosition = new Vector3(Random.Range(-34f, 34f), 1, Random.Range(-20f, 20f));
+        //targetTransform.localPosition = new Vector3(Random.Range(-34f, 34f), 1, Random.Range(-20f, 20f));
         enemyPlayer.transform.localPosition = new Vector3(Random.Range(32f, 38f), 1.5f, Random.Range(-3.49f, 3.49f));
     }
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(transform.localPosition);
         sensor.AddObservation(targetTransform.localPosition);
-        sensor.AddObservation(enemyPlayer.transform.localPosition);
-        sensor.AddObservation(coordenadaGolArcoEnemigo.transform.localPosition);
     }
 
     public override void OnActionReceived(ActionBuffers actions)
@@ -71,19 +74,13 @@ public class FederAI : Agent
         calcVelocidadVertical(abajoOArriba);
         playerRigidbody.AddForce(transform.right * fuerzaHorizontal * potencia);
         playerRigidbody.AddForce(transform.forward * fuerzaVertical * potencia);
-
+        predictGoalOnKick();
         if ((pelota.transform.localPosition - playerRigidbody.transform.localPosition).magnitude <= 4)
         {
-            //AddReward(+1f);
-            //isPlayerOnPositionToKick();
+            AddReward(+0.00001f);
+            isBallNearGoalEnemy(patearONoPatear);
+            isPlayerOnPositionToKick();
             kickBall(patearONoPatear);
-            if (targetTransform.localPosition.z <= 6 && targetTransform.localPosition.z >= -6)
-            {
-                kickBall(patearONoPatear);
-            }
-            else {
-                kickBall(patearONoPatear);
-            }
             /*else if (targetTransform.localPosition.z >= 10 && targetTransform.localPosition.z <= 20 || targetTransform.localPosition.z <= -10 && targetTransform.localPosition.z >= -20) {
                 kickBall(patearONoPatear);
             }*/
@@ -99,9 +96,9 @@ public class FederAI : Agent
         }
 
         //isBallOnEnemyField();
-        //isBallNearGoalEnemy();
         CheckGoal();
-        AddReward(-1f / MaxStep);
+        isBallOnEnemyField();
+        AddReward(-0.0001f);
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)
@@ -259,7 +256,7 @@ public class FederAI : Agent
         {
             if ((pelota.transform.localPosition - playerRigidbody.transform.localPosition).magnitude <= 4) // Distancia requerida
             {
-                //AddReward(+1f);
+                AddReward(+0.00001f);
                 vectorPlayerPelota = pelota.transform.localPosition - (new Vector3(playerRigidbody.transform.localPosition.x, playerRigidbody.transform.localPosition.y - (power - 0.5f), playerRigidbody.transform.localPosition.z));
                 vectorPlayerPelota = vectorPlayerPelota.normalized;
                 vectorPlayerPelota = vectorPlayerPelota * (power * power);
@@ -283,7 +280,7 @@ public class FederAI : Agent
             if (pelota.transform.localPosition.x >= coordenadaGolArcoEnemigo.localPosition.x)
             {
                 //Debug.Log("ROJO MARCA: GOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOL");
-                AddReward(+100f);
+                AddReward(+1f);
                 //ResetMatchGame();
                 EndEpisode();
             }
@@ -331,12 +328,9 @@ public class FederAI : Agent
 
     public void isBallOnEnemyField() {
         if (setPlayerTeamNumber == 1) {
-            if (targetTransform.localPosition.x > 0)
+            if (targetTransform.localPosition.x < 0)
             {
-                AddReward(+0.1f);
-            }
-            else {
-                AddReward(-0.1f);
+                AddReward(-0.00002f);
             }
         }
         if (setPlayerTeamNumber == 2)
@@ -352,16 +346,46 @@ public class FederAI : Agent
         }
     }
 
-    public void isBallNearGoalEnemy() {
+    public void isBallNearGoalEnemy(float patearONoPatear) {
         float ballToMyOwnGoalDistance;
         float ballToEnemyGoalDistance;
         if (setPlayerTeamNumber == 1) {
             ballToMyOwnGoalDistance = Vector3.Distance(targetTransform.localPosition, coordenadaGolArcoPropio.localPosition);
             ballToEnemyGoalDistance = Vector3.Distance(targetTransform.localPosition, coordenadaGolArcoEnemigo.localPosition);
             if (ballToMyOwnGoalDistance > ballToEnemyGoalDistance) {
-                if (ballToEnemyGoalDistance < 5)
+                if (ballToEnemyGoalDistance <= 25 && ballToEnemyGoalDistance > 10)
                 {
-                    AddReward(+1f);
+                    if (pelotaArcoDistanciaMediana == false)
+                    {
+                        AddReward(+1f);
+                        pelotaArcoDistanciaMediana = true;
+                    }
+                    if (patearONoPatear == 1) {
+                        AddReward(+0.5f);
+                    }
+                }
+                if (ballToEnemyGoalDistance <= 10 && ballToEnemyGoalDistance >5)
+                {
+                    if (pelotaArcoDistanciaCercana == false)
+                    {
+                        AddReward(+1f);
+                        pelotaArcoDistanciaCercana = true;
+                    }
+                    if (patearONoPatear == 1)
+                    {
+                        AddReward(+0.5f);
+                    }
+                }
+                if (ballToEnemyGoalDistance <= 5)
+                {
+                    if (pelotaArcoDistanciaMuyCerca == false) {
+                        AddReward(+1f);
+                        pelotaArcoDistanciaMuyCerca = true;
+                    }
+                    if (patearONoPatear == 1)
+                    {
+                        AddReward(+0.5f);
+                    }
                 }
             }
 
@@ -393,10 +417,10 @@ public class FederAI : Agent
         if (setPlayerTeamNumber == 1) {
             if (transform.localPosition.x <= targetTransform.localPosition.x)
             {
-                AddReward(+1f);
+                AddReward(+0.00001f);
             }
             else {
-                AddReward(-1f);
+                AddReward(-0.00001f);
             }
         }
         if (setPlayerTeamNumber == 2)
@@ -411,5 +435,16 @@ public class FederAI : Agent
             }
 
         }
+    }
+
+    public void predictGoalOnKick() {
+        float x1 = transform.localPosition.x;
+        float x2 = targetTransform.localPosition.x;
+        float z1 = transform.localPosition.z;
+        float z2 = targetTransform.localPosition.z;
+        float xResultante = 0, zResultante = 0;
+        xResultante = (x2 - x1) + x2;
+        zResultante = ((z1 - z2) - z2) * -1;
+        ghostBallToCalculate.transform.localPosition = new Vector3(xResultante, 1, zResultante);
     }
 }
