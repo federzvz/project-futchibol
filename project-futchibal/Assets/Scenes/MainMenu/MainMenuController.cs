@@ -34,7 +34,7 @@ public class MainMenuController : MonoBehaviour
         }
 
         //If playerprefs.txt file does not exist, create one with default values
-        if (File.Exists(Application.dataPath + "/playerprefs.json")){
+        if (!File.Exists(Application.dataPath + "/playerprefs.json")){
             string strOutput = JsonUtility.ToJson(customPlayerPrefs);
             File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
         }
