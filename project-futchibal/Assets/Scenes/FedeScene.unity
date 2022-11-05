@@ -5709,6 +5709,11 @@ PrefabInstance:
       propertyPath: izquierda
       value: 276
       objectReference: {fileID: 0}
+    - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
+        type: 3}
+      propertyPath: playerTeamId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6280432314442427883, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
       propertyPath: m_Name
@@ -6514,7 +6519,8 @@ MonoBehaviour:
   potencia: 900
   power: 1
   PowerPlayer: {fileID: 1782723408}
-  kick: 112
+  kick: 0
+  playerTeamId: 2
 --- !u!4 &1240145714 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6280432314442427887, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
@@ -7063,7 +7069,8 @@ MonoBehaviour:
   potencia: 900
   power: 1
   PowerPlayer: {fileID: 528307160}
-  kick: 32
+  kick: 0
+  playerTeamId: 1
 --- !u!1 &1558362414
 GameObject:
   m_ObjectHideFlags: 0
@@ -10036,17 +10043,17 @@ PrefabInstance:
     - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
       propertyPath: abajo
-      value: 115
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
       propertyPath: arriba
-      value: 119
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
       propertyPath: derecha
-      value: 100
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
@@ -10056,7 +10063,12 @@ PrefabInstance:
     - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}
       propertyPath: izquierda
-      value: 97
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6280432314442427873, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
+        type: 3}
+      propertyPath: playerTeamId
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6280432314442427883, guid: cf94e2fdf6c37e340b4fda7b9421fa4d,
         type: 3}

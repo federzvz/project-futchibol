@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
 
 public class Kick : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class Kick : MonoBehaviour
     private Vector3 vectorPlayerPelota = new Vector3();
     public Text PowerPlayer;
     private string powerTextAux = "";
-    public KeyCode kick = KeyCode.Space;
+    public KeyCode kick;
+    public int playerTeamId;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class Kick : MonoBehaviour
         //pelota = GameObject.Find("Soccer Ball").GetComponent<Rigidbody>();
         power = 1;
         PowerPlayer.text = "";
+        setUpPlayerControlPrefs();
     }
     void actulizarPotenciaActual()
     {
@@ -74,6 +77,20 @@ public class Kick : MonoBehaviour
             PowerPlayer.text = "";
             //print("Space key was released");
             power = 1f;
+        }
+    }
+
+    public void setUpPlayerControlPrefs()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/playerprefs.json");
+        CustomPlayerPrefs customPlayerPrefs = JsonUtility.FromJson<CustomPlayerPrefs>(json);
+        if (playerTeamId == 1)
+        {
+            this.kick = customPlayerPrefs.player1Kick;
+        }
+        if (playerTeamId == 2)
+        {
+            this.kick = customPlayerPrefs.player2Kick;
         }
     }
 }

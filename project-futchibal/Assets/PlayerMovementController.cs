@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class PlayerMovementController : MonoBehaviour
 {
@@ -122,17 +123,20 @@ public class PlayerMovementController : MonoBehaviour
     }
 
     public void setUpPlayerControlPrefs() {
+        string json = File.ReadAllText(Application.dataPath + "/playerprefs.json");
+        CustomPlayerPrefs customPlayerPrefs = JsonUtility.FromJson<CustomPlayerPrefs>(json);
         if (playerTeamId == 1) {
-            this.izquierda = MainMenuController.player1Left;
-            this.derecha = MainMenuController.player1Right;
-            this.arriba = MainMenuController.player1Up;
-            this.abajo = MainMenuController.player1Down;
+            Debug.Log(Application.dataPath + "/playerprefs.json");
+            this.izquierda = customPlayerPrefs.player1Left;
+            this.derecha = customPlayerPrefs.player1Right;
+            this.arriba = customPlayerPrefs.player1Up;
+            this.abajo = customPlayerPrefs.player1Down;
         }
         if (playerTeamId == 2) {
-            this.izquierda = MainMenuController.player2Left;
-            this.derecha = MainMenuController.player2Right;
-            this.arriba = MainMenuController.player2Up;
-            this.abajo = MainMenuController.player2Down;
+            this.izquierda = customPlayerPrefs.player2Left;
+            this.derecha = customPlayerPrefs.player2Right;
+            this.arriba = customPlayerPrefs.player2Up;
+            this.abajo = customPlayerPrefs.player2Down;
         }
     }
 }
