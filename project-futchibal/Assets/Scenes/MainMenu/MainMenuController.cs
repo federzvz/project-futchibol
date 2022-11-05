@@ -4,34 +4,45 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.IO;
+using System;
 
 public class MainMenuController : MonoBehaviour
 {
     public static MainMenuController instance;
 
-    public GameObject multijugadorLocal, multijugadorOnline, estadisticas, opciones, salir;
+    public GameObject multijugadorLocal, multijugadorOnline, estadisticas, opciones, salir, btnConfiguracionesVolverMainMenu;
     public GameObject partidoRapido, volverMainMenu, campeonato;
 
-    public GameObject partidoRapidoPanel;
+    public GameObject partidoRapidoPanel, configuracionesPanel;
     public GameObject btnElegirCancha1, btnElegirCancha2;
 
     public EventSystem eventSystem;
     private GameObject eventSystemlastSelectedGameObject;
 
-
+    private bool isSystemListeningNewPlayerKeyInput = false;
+    private string buttonPressed = "";
 
     private string stadiumSelected = "";
+
+    public CustomPlayerPrefs customPlayerPrefs = new CustomPlayerPrefs();
 
     public void Awake()
     {
         if (instance == null) {
             instance = this;
         }
+
+        //If playerprefs.txt file does not exist, create one with default values
+        if (!File.Exists(Application.dataPath + "/playerprefs.json")){
+            string strOutput = JsonUtility.ToJson(customPlayerPrefs);
+            File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+        }
     }
 
     public void Update()
     {
-
+        Event e = Event.current;
         //Si no hay ningún botón seleccionado(Porque clickeó el backround), se guarda y se setea el último botón que estaba seleccionado.
         if (eventSystem.currentSelectedGameObject != null)
         {
@@ -39,6 +50,12 @@ public class MainMenuController : MonoBehaviour
         }
         else {
             eventSystem.SetSelectedGameObject(eventSystemlastSelectedGameObject);
+        }
+
+        //if player has been pressed some of the buttons to change the settings
+        if (isSystemListeningNewPlayerKeyInput) {
+            //change the button listening to the player input
+            updatePlayerControls();
         }
     }
 
@@ -74,7 +91,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnBtnPlayMatch() {
         if (stadiumSelected.Equals("")) {
-            int rInt = Random.Range(0, 1);
+            int rInt = UnityEngine.Random.Range(0, 1);
             if (rInt == 0)
             {
                 stadiumSelected = "FedeScene";
@@ -99,7 +116,197 @@ public class MainMenuController : MonoBehaviour
         opciones.SetActive(true);
         salir.SetActive(true);
         eventSystem.SetSelectedGameObject(multijugadorLocal);
+        configuracionesPanel.SetActive(false);
     }
+
+    public void OnBtnSettings() {
+        configuracionesPanel.SetActive(true);
+
+        partidoRapidoPanel.SetActive(false);
+        multijugadorLocal.SetActive(false);
+        estadisticas.SetActive(false);
+        multijugadorOnline.SetActive(false);
+        opciones.SetActive(false);
+        salir.SetActive(false);
+        eventSystem.SetSelectedGameObject(btnConfiguracionesVolverMainMenu);
+    }
+
+    public void listenPlayer1LeftKeyInput() {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player1Left";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer1RightKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player1Right";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer1DownKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player1Down";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer1UpKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player1Up";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer1KickKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player1Kick";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer2LeftKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player2Left";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer2RightKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player2Right";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer2DownKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player2Down";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer2UpKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player2Up";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void listenPlayer2KickKeyInput()
+    {
+        isSystemListeningNewPlayerKeyInput = true;
+        buttonPressed = "player2Kick";
+        btnConfiguracionesVolverMainMenu.SetActive(false);
+    }
+
+    public void updatePlayerControls() {
+        string strOutput = "";
+        //Iterate every keycode existent
+        foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
+        {
+            //if key pressed is one of the existent keys
+            if (Input.GetKeyDown(kcode))
+            {
+                //detect which button the user pressed to change that specific button action
+                switch (buttonPressed) {
+                    case "player1Left":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player1Left = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player1Right":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player1Right = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player1Down":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player1Down = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player1Up":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player1Up = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player1Kick":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player1Kick = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player2Left":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player2Left = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player2Right":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player2Right = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player2Down":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player2Down = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player2Up":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player2Up = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                    case "player2Kick":
+                        Debug.Log(buttonPressed);
+                        Debug.Log("KeyCode down: " + kcode);
+                        isSystemListeningNewPlayerKeyInput = false;
+                        customPlayerPrefs.player2Kick = kcode;
+                        strOutput = JsonUtility.ToJson(customPlayerPrefs);
+                        File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnConfiguracionesVolverMainMenu.SetActive(true);
+                        break;
+                }
+                
+            }
+        }
+    }
+
+
 
 
 }
