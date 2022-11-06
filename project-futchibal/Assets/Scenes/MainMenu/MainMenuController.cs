@@ -27,6 +27,9 @@ public class MainMenuController : MonoBehaviour
 
     public CustomPlayerPrefs customPlayerPrefs = new CustomPlayerPrefs();
 
+    public Text btnTextPlayer1Right, btnTextPlayer1Left, btnTextPlayer1Down, btnTextPlayer1Up, btnTextPlayer1Kick;
+    public Text btnTextPlayer2Right, btnTextPlayer2Left, btnTextPlayer2Down, btnTextPlayer2Up, btnTextPlayer2Kick;
+
     public void Awake()
     {
         if (instance == null) {
@@ -34,10 +37,16 @@ public class MainMenuController : MonoBehaviour
         }
 
         //If playerprefs.txt file does not exist, create one with default values
-        if (!File.Exists(Application.dataPath + "/playerprefs.json")){
+        if (!File.Exists(Application.dataPath + "/playerprefs.json"))
+        {
             string strOutput = JsonUtility.ToJson(customPlayerPrefs);
             File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
         }
+        else {
+            string json = File.ReadAllText(Application.dataPath + "/playerprefs.json");
+            customPlayerPrefs = JsonUtility.FromJson<CustomPlayerPrefs>(json);
+        }
+        getDefaultKeysAndChangeButtonsText();
     }
 
     public void Update()
@@ -206,9 +215,14 @@ public class MainMenuController : MonoBehaviour
         foreach (KeyCode kcode in Enum.GetValues(typeof(KeyCode)))
         {
             //if key pressed is one of the existent keys
-            if (Input.GetKeyDown(kcode))
+            if (Input.GetKeyDown(kcode) && kcode != KeyCode.Return)
             {
                 //detect which button the user pressed to change that specific button action
+                if (kcode == KeyCode.Backspace || kcode == KeyCode.Escape) {
+                    isSystemListeningNewPlayerKeyInput = false;
+                    btnConfiguracionesVolverMainMenu.SetActive(true);
+                    return;
+                }
                 switch (buttonPressed) {
                     case "player1Left":
                         Debug.Log(buttonPressed);
@@ -217,7 +231,9 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player1Left = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer1Left.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
+
                         break;
                     case "player1Right":
                         Debug.Log(buttonPressed);
@@ -226,6 +242,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player1Right = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer1Right.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player1Down":
@@ -235,6 +252,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player1Down = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer1Down.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player1Up":
@@ -244,6 +262,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player1Up = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer1Up.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player1Kick":
@@ -253,6 +272,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player1Kick = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer1Kick.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player2Left":
@@ -262,6 +282,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player2Left = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer2Left.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player2Right":
@@ -271,6 +292,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player2Right = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer2Right.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player2Down":
@@ -280,6 +302,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player2Down = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer2Down.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player2Up":
@@ -289,6 +312,7 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player2Up = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer2Up.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                     case "player2Kick":
@@ -298,12 +322,27 @@ public class MainMenuController : MonoBehaviour
                         customPlayerPrefs.player2Kick = kcode;
                         strOutput = JsonUtility.ToJson(customPlayerPrefs);
                         File.WriteAllText(Application.dataPath + "/playerprefs.json", strOutput);
+                        btnTextPlayer2Kick.text = kcode.ToString();
                         btnConfiguracionesVolverMainMenu.SetActive(true);
                         break;
                 }
                 
             }
         }
+    }
+
+    public void getDefaultKeysAndChangeButtonsText() {
+        btnTextPlayer1Left.text = customPlayerPrefs.player1Left.ToString();
+        btnTextPlayer1Right.text = customPlayerPrefs.player1Right.ToString();
+        btnTextPlayer1Down.text = customPlayerPrefs.player1Down.ToString();
+        btnTextPlayer1Up.text = customPlayerPrefs.player1Up.ToString();
+        btnTextPlayer1Kick.text = customPlayerPrefs.player1Kick.ToString();
+
+        btnTextPlayer2Left.text = customPlayerPrefs.player2Left.ToString();
+        btnTextPlayer2Right.text = customPlayerPrefs.player2Right.ToString();
+        btnTextPlayer2Down.text = customPlayerPrefs.player2Down.ToString();
+        btnTextPlayer2Up.text = customPlayerPrefs.player2Up.ToString();
+        btnTextPlayer2Kick.text = customPlayerPrefs.player2Kick.ToString();
     }
 
 
