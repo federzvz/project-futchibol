@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameplayController : MonoBehaviour
 {
+    public AudioSource crowd;
+    public AudioSource gol;
     public Rigidbody pelotaRigidbody;
     public List<Collider> paredes;
     public GameObject pelota;
@@ -30,6 +32,7 @@ public class GameplayController : MonoBehaviour
         DesactivarColisionesJugadorParedes();
         scoreTeam1 = 0;
         scoreTeam2 = 0;
+        crowd.Play();
     }
 
     public void Update()
@@ -39,6 +42,7 @@ public class GameplayController : MonoBehaviour
         if (isJuegoDetenido) {
             ComenzarJuego();
         }
+
     }
 
     public void DesactivarColisionesJugadorParedes() {
@@ -66,11 +70,12 @@ public class GameplayController : MonoBehaviour
                 scoreTeam1++;
                 textoScoreJugador1.text = scoreTeam1.ToString();
                 isGol = true;
+                gol.Play();
                 isJuegoDetenido = true;
                 if (seconds > 54 && seconds < 60)
                     secondsNecesaryToRestart = seconds - 55;
                 else 
-                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serï¿½n los necesarios para reiniciar el juego
                 DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
             if (pelota.transform.localPosition.x <= coordenadaGolArcoJugador2)
@@ -78,11 +83,12 @@ public class GameplayController : MonoBehaviour
                 scoreTeam2++;
                 textoScoreJugador2.text = scoreTeam2.ToString();
                 isGol = true;
+                gol.Play();
                 isJuegoDetenido = true;
                 if (seconds > 54 && seconds < 60)
                     secondsNecesaryToRestart = seconds - 55;
                 else
-                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serán los necesarios para reiniciar el juego
+                    secondsNecesaryToRestart = seconds + 5; //Establecer que el segundo actual +5 serï¿½n los necesarios para reiniciar el juego
                 DisableBallbounciness(); //Desactivamos el rebote de la pelota para simular la tela de la red
             }
         }
