@@ -6,6 +6,9 @@ using System.IO;
 
 public class Kick : MonoBehaviour
 {
+    // public AudioSource kickSound;
+    public AudioSource sonidoKick;
+    public AudioClip[] clips;
     Rigidbody m_Rigidbody;
     //var heading = target.position - player.position;
     public Rigidbody pelota;
@@ -29,7 +32,7 @@ public class Kick : MonoBehaviour
     void actulizarPotenciaActual()
     {
         powerAux = (int)((power - 1) * 100);
-        Debug.Log(powerAux);
+        // Debug.Log(powerAux);
         vueltasFor = (powerAux * 38) / 100;
         for (int i = 0; i < vueltasFor; i++)
         {
@@ -52,27 +55,39 @@ public class Kick : MonoBehaviour
             actulizarPotenciaActual();
             //Apply a force to this Rigidbody in direction of this GameObjects up axis
             //m_Rigidbody.AddForce(transform.up * m_Thrust);
-            Debug.Log((pelota.position - m_Rigidbody.position).magnitude);
+            // Debug.Log((pelota.position - m_Rigidbody.position).magnitude);
             //pelota.AddForce()
         }
         if (Input.GetKeyUp(kick))
         {
-            Debug.Log("KICKKKKKKKKK!!!!");
+            // Debug.Log("KICKKKKKKKKK!!!!");
             if ((pelota.position - m_Rigidbody.position).magnitude <= 4) // Distancia requerida
             {
-                Debug.Log("Dentro del rango de disparo");
+                // Debug.Log("Dentro del rango de disparo");
                 //float potenciafinal = m_Thrust * power;
-                vectorPlayerPelota = pelota.position - (new Vector3(m_Rigidbody.position.x, m_Rigidbody.position.y - (power - 0.5f), m_Rigidbody.position.z));
-                Debug.Log(vectorPlayerPelota.magnitude);
+                if (pelota.position.y < 1.5) // Distancia maxima del suelo en que la pelota se patea "Normal" (Que se eleva dependiendo de la potencia)
+                {
+                    vectorPlayerPelota = pelota.position - (new Vector3(m_Rigidbody.position.x, m_Rigidbody.position.y - (power - 0.5f), m_Rigidbody.position.z));
+                } else
+                { // Totalmente recto
+                    vectorPlayerPelota = pelota.position - (new Vector3(m_Rigidbody.position.x, pelota.position.y, m_Rigidbody.position.z));
+                }
+                
+
+                // Debug.Log(vectorPlayerPelota.magnitude);
                 vectorPlayerPelota = vectorPlayerPelota.normalized;
                 //Debug.Log(vectorPlayerPelota.magnitude);
                 vectorPlayerPelota = vectorPlayerPelota * (power * power);
-                Debug.Log(vectorPlayerPelota.magnitude);
+                // Debug.Log(vectorPlayerPelota.magnitude);
                 pelota.AddForce(vectorPlayerPelota * potencia);
+                // Random.rango();
+                PlaySound();
+                // sonidosKick[0].Play();
+
             }
             else
             {
-                Debug.Log("Fuera del rango de disparo");
+                // Debug.Log("Fuera del rango de disparo");
             }
             PowerPlayer.text = "";
             //print("Space key was released");
@@ -93,4 +108,14 @@ public class Kick : MonoBehaviour
             this.kick = customPlayerPrefs.player2Kick;
         }
     }
+    public void PlaySound()
+     {
+        int rand = Random.Range(0, clips.Length);
+        // audioSource.clip = sound[rand];
+        // audioSource[rand].volume
+        sonidoKick.clip = clips[rand];
+        sonidoKick.volume = (power - 1);
+        Debug.Log(sonidoKick.volume);
+        sonidoKick.Play();
+     }
 }

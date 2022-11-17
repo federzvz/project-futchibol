@@ -8,6 +8,7 @@ TagManager:
   - Ball
   - ownGoal
   - enemyGoal
+  - Palo
   layers:
   - Default
   - TransparentFX
