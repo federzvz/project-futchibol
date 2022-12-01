@@ -668,6 +668,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PauseMenu
       objectReference: {fileID: 0}
+    - target: {fileID: 5460614154324337112, guid: 06b97c15092dbd84ab25b9c1afc95860,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5460614154324337113, guid: 06b97c15092dbd84ab25b9c1afc95860,
         type: 3}
       propertyPath: m_RootOrder
@@ -16130,13 +16135,37 @@ PrefabInstance:
     m_TransformParent: {fileID: 329021297}
     m_Modifications:
     - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: kick
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
       propertyPath: pelota
       value: 
       objectReference: {fileID: 1596990955}
     - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: sonidoKick
+      value: 
+      objectReference: {fileID: 1248875918}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
       propertyPath: PowerPlayer
       value: 
-      objectReference: {fileID: 1410536646}
+      objectReference: {fileID: 602218391}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: playerTeamId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: clips.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: clips.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: e2f53f45af92ee04ab4b7e0ac4565227, type: 3}
+    - target: {fileID: 376195030, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
+      propertyPath: clips.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: 5bce21fc5f39b054eb57668a03e3275c, type: 3}
     - target: {fileID: 8237879362926067219, guid: 0624d21f6be779149aedca1635aa0fec,
         type: 3}
       propertyPath: m_Name
@@ -16145,7 +16174,7 @@ PrefabInstance:
     - target: {fileID: 8237879362926067219, guid: 0624d21f6be779149aedca1635aa0fec,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8237879362926067221, guid: 0624d21f6be779149aedca1635aa0fec,
         type: 3}
@@ -16206,6 +16235,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237879362926067225, guid: 0624d21f6be779149aedca1635aa0fec,
+        type: 3}
+      propertyPath: abajo
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237879362926067225, guid: 0624d21f6be779149aedca1635aa0fec,
+        type: 3}
+      propertyPath: arriba
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237879362926067225, guid: 0624d21f6be779149aedca1635aa0fec,
+        type: 3}
+      propertyPath: derecha
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237879362926067225, guid: 0624d21f6be779149aedca1635aa0fec,
+        type: 3}
+      propertyPath: izquierda
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8237879362926067225, guid: 0624d21f6be779149aedca1635aa0fec,
+        type: 3}
+      propertyPath: playerTeamId
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0624d21f6be779149aedca1635aa0fec, type: 3}
@@ -34311,7 +34365,7 @@ PrefabInstance:
     - target: {fileID: 1946616932001269145, guid: cef2e4ac5828ed74ab8a432d3ba4fcd6,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1946616932001269149, guid: cef2e4ac5828ed74ab8a432d3ba4fcd6,
         type: 3}
